@@ -7,7 +7,7 @@ function NewPage({ params }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   useEffect(() => {
-    if(params.id){
+    if (params.id) {
       fetch(`/api/task/${params.id}`).then(res => res.json()).then(data => {
         setTitle(data.title)
         setDescription(data.description)
@@ -19,14 +19,14 @@ function NewPage({ params }) {
     e.preventDefault()
 
     if (params.id) {
-      const res =await fetch(`/api/task/${params.id}`,{
+      const res = await fetch(`/api/task/${params.id}`, {
         method: 'PUT',
         body: JSON.stringify({ title, description }),
         headers: {
           'Content-Type': 'application/JSON'
         }
       })
-      const data=await res.json()
+      const data = await res.json()
     } else {
       const res = await fetch('api/task', {
         method: 'POST',
@@ -37,16 +37,16 @@ function NewPage({ params }) {
       })
       const data = await res.json()
     }
-    router.refresh()
     router.push("/")
+    router.refresh()
   }
 
-  const handleDelete =async (e)=>{
+  const handleDelete = async (e) => {
     e.preventDefault()
-    const res =await fetch(`/api/task/${params.id}`,{
+    const res = await fetch(`/api/task/${params.id}`, {
       method: 'DELETE'
     })
-    const data=await res.json()
+    const data = await res.json()
     router.refresh()
     router.push("/")
   }
@@ -71,7 +71,7 @@ function NewPage({ params }) {
           placeholder="Describe your task"
           onChange={(e) => setDescription(e.target.value)}
           value={description}></textarea>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type='submit'>{params.id ? "Actualizar":"Crear"}</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type='submit'>{params.id ? "Actualizar" : "Crear"}</button>
         {params.id && (
           <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4' type='button' onClick={handleDelete}>
             Delete
