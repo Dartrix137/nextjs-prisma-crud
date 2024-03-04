@@ -8,7 +8,7 @@ function NewPage({ params }) {
   const [description, setDescription] = useState("")
   useEffect(() => {
     if (params.id) {
-      fetch(`/api/task/${params.id}`).then(res => res.json()).then(data => {
+      fetch(`https://new-task-app.netlify.app/api/task/${params.id}`).then(res => res.json()).then(data => {
         setTitle(data.title)
         setDescription(data.description)
       })
